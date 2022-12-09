@@ -14,7 +14,7 @@ import { PATH_AFTER_LOGIN } from '../config-global';
 //
 import {
   Page404,
-  PageOne,
+  // PageOne,
   PageTwo,
   PageSix,
   PageFour,
@@ -22,6 +22,11 @@ import {
   LoginPage,
   PageThree,
 } from './elements';
+
+// alternative to code splitting above (incl. loader function)
+import PageOne, { lo } from '../pages/PageOne';
+
+// const lo = () => console.log('loader');
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +64,7 @@ export const r = createBrowserRouter([
     ),
     children: [
       { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
-      { path: 'one', element: <PageOne /> },
+      { path: 'one', element: <PageOne />, loader: lo },
       { path: 'two', element: <PageTwo /> },
       { path: 'three', element: <PageThree /> },
       {

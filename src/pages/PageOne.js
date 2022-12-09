@@ -5,6 +5,8 @@ import { Container, Typography } from '@mui/material';
 import { useSettingsContext } from '../components/settings';
 
 // ----------------------------------------------------------------------
+// loading function
+export const lo = () => console.log('loader');
 
 export default function PageOne() {
   const { themeStretch } = useSettingsContext();
@@ -12,7 +14,7 @@ export default function PageOne() {
   return (
     <>
       <Helmet>
-        <title> Page One | Minimal UI</title>
+        <title> Page One | cra</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'xl'}>
@@ -28,14 +30,6 @@ export default function PageOne() {
           viverra quis, feugiat a, tellus. In consectetuer turpis ut velit. Aenean posuere, tortor
           sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus.
           Vestibulum suscipit nulla quis orci. Nam commodo suscipit quam. Sed a libero.
-        </Typography>
-
-        <Typography>
-          Praesent ac sem eget est egestas volutpat. Phasellus viverra nulla ut metus varius
-          laoreet. Curabitur ullamcorper ultricies nisi. Ut non enim eleifend felis pretium feugiat.
-          Donec mi odio, faucibus at, scelerisque quis, convallis in, nisi. Fusce vel dui. Quisque
-          libero metus, condimentum nec, tempor a, commodo mollis, magna. In enim justo, rhoncus ut,
-          imperdiet a, venenatis vitae, justo. Cras dapibus.
         </Typography>
       </Container>
     </>

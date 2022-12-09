@@ -17,21 +17,21 @@ const ICONS = {
 };
 
 const navConfig = [
-  // GENERAL
+  // WINE
   // ----------------------------------------------------------------------
   {
-    subheader: 'general v4.1.0',
+    subheader: 'wine',
     items: [
-      { title: 'One', path: PATH_DASHBOARD.one, icon: ICONS.dashboard },
-      { title: 'Two', path: PATH_DASHBOARD.two, icon: ICONS.ecommerce },
+      { title: 'Edit', path: PATH_DASHBOARD.one, icon: ICONS.dashboard },
+      { title: 'Add', path: PATH_DASHBOARD.two, icon: ICONS.ecommerce },
       { title: 'Three', path: PATH_DASHBOARD.three, icon: ICONS.analytics },
     ],
   },
 
-  // MANAGEMENT
+  // BOTTLES
   // ----------------------------------------------------------------------
   {
-    subheader: 'management',
+    subheader: 'bottle',
     items: [
       {
         title: 'user',
