@@ -31,20 +31,31 @@ const navConfig = [
   // BOTTLES
   // ----------------------------------------------------------------------
   {
-    subheader: 'bottle',
+    subheader: 'bottles',
     items: [
-      {
-        title: 'user',
-        path: PATH_DASHBOARD.user.root,
-        icon: ICONS.user,
-        children: [
-          { title: 'Four', path: PATH_DASHBOARD.user.four },
-          { title: 'Five', path: PATH_DASHBOARD.user.five },
-          { title: 'Six', path: PATH_DASHBOARD.user.six },
-        ],
-      },
+      { title: 'Consume', path: PATH_DASHBOARD.user.four, icon: ICONS.dashboard },
+      { title: 'Add', path: PATH_DASHBOARD.user.five, icon: ICONS.ecommerce },
+      { title: 'Edit', path: PATH_DASHBOARD.user.six, icon: ICONS.analytics },
     ],
   },
+
+  // SETTINGS
+  // ----------------------------------------------------------------------
+  // {
+  //   subheader: 'settings',
+  //   items: [
+  //     {
+  //       title: 'user',
+  //       path: PATH_DASHBOARD.user.root,
+  //       icon: ICONS.user,
+  //       children: [
+  //         { title: 'Four', path: PATH_DASHBOARD.user.four },
+  //         { title: 'Five', path: PATH_DASHBOARD.user.five },
+  //         { title: 'Six', path: PATH_DASHBOARD.user.six },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 export default navConfig;
