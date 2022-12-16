@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 // @mui
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Box, Paper, styled } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 // components
 import { BottleSearchDisplay } from '../components/winetrak/BottleSearchDisplay';
 import BottleSearchInput from '../components/winetrak/BottleSearchInput';
@@ -27,12 +28,10 @@ export default function PageFour() {
           Consume Bottle
         </Typography>
 
-        {/* Display search bottle dialogue */}
         {searchData.bottleSearchString === '' && (
           <BottleSearchInput setSearchData={setSearchData} />
         )}
 
-        {/* Display bottles found */}
         {searchData.bottleSearchString !== '' && (
           <BottleSearchDisplay searchData={searchData} setSearchData={setSearchData} />
         )}

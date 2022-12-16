@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import PropTypes from 'prop-types';
-import { Button, Pagination } from '@mui/material';
+import { Button, Pagination, Stack } from '@mui/material';
 
 import { fetchBottles, searchBottles } from '../../https/bottles';
 
@@ -69,9 +69,8 @@ export const BottleSearchDisplay = ({ searchData, setSearchData, setSetEdit }) =
 
   const editBottle = (id, vintage, rack) => {
     console.log('Edit bottle with id: = ', id, vintage, rack);
-    setSetEdit(id);
-
     // updateBottle.mutate({ id, vintage, rack }); // Force refresh
+    setSetEdit(id);
   };
 
   const handleChange = (event, value) => {
@@ -95,26 +94,19 @@ export const BottleSearchDisplay = ({ searchData, setSearchData, setSetEdit }) =
             {bb.wineText} {bb.vintage} {bb.rack} {bb.shelf}
           </h5>
         ))}
-      <Pagination count={data.pages} page={page} onChange={handleChange} sx={{ mb: 2 }} />
-      {/* <Button onClick={() => setPage((pag) => pag - 1)} disabled={page === 1} variant="contained">
-        Prev
-      </Button>{' '}
-      <Button
-        onClick={() => setPage((pag) => pag + 1)}
-        disabled={page === data.pages}
-        variant="contained"
-      >
-        Next
-      </Button>{' '} */}
-      <Button
-        onClick={() => {
-          setSearchData({ bottleSearchString: '', vintageSearchString: 0 });
-          setSetEdit('');
-        }}
-        variant="contained"
-      >
-        Search again
-      </Button>
+      <Stack direction="row">
+        <Pagination count={data.pages} page={page} onChange={handleChange} sx={{ mb: 2 }} />
+        <Button>aaaa</Button>
+        <Button
+          onClick={() => {
+            setSearchData({ bottleSearchString: '', vintageSearchString: 0 });
+            setSetEdit(false);
+          }}
+          variant="contained"
+        >
+          Search again
+        </Button>
+      </Stack>
     </>
   );
 };
