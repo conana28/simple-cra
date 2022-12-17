@@ -13,13 +13,23 @@ GridTestLayout.propTypes = {
   children: PropTypes.node,
   illustration: PropTypes.string,
   setSetEdit: PropTypes.func,
+  setBottleSelected: PropTypes.func,
+  bottleSelected: PropTypes.object,
 };
 
-export default function GridTestLayout({ children, illustration, title, setSetEdit }) {
+export default function GridTestLayout({
+  children,
+  illustration,
+  title,
+  setSetEdit,
+  setBottleSelected,
+  bottleSelected,
+}) {
   const [searchData, setSearchData] = useState({
     bottleSearchString: '',
     vintageSearchString: 0,
   });
+  console.log(setBottleSelected);
 
   return (
     <>
@@ -29,7 +39,7 @@ export default function GridTestLayout({ children, illustration, title, setSetEd
 
       {/* <Box sx={{ flexGrow: 1, bgcolor: 'dodgerblue', height: '80vh' }}> */}
       <Grid container spacing={5}>
-        <Grid xs={12} sm={6} sx={{ bgcolor: 'orange', maxHeight: '420px' }}>
+        <Grid xs={12} sm={6} sx={{ bgcolor: 'orange' }}>
           {searchData.bottleSearchString === '' && (
             <TestSearchInput setSearchData={setSearchData} />
           )}
@@ -39,6 +49,8 @@ export default function GridTestLayout({ children, illustration, title, setSetEd
               searchData={searchData}
               setSearchData={setSearchData}
               setSetEdit={setSetEdit}
+              bottleSelected={bottleSelected}
+              setBottleSelected={setBottleSelected}
             />
           )}
         </Grid>

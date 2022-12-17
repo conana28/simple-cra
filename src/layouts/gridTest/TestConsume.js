@@ -22,10 +22,10 @@ function getKey(array, key) {
   return null;
 }
 
-function TestConsume({ setEdit, setSetEdit }) {
+function TestConsume({ setEdit, setSetEdit, setBottleSelected }) {
   const queryClient = useQueryClient();
 
-  // Get the bottle details
+  // Get the bottle details - expects an arry
   console.log('setEdit: ', setEdit);
   const id = getKey(setEdit, '_id');
   const vintage = getKey(setEdit, 'vintage');
@@ -86,7 +86,8 @@ function TestConsume({ setEdit, setSetEdit }) {
     // Update the record
     updateBottle.mutate({ data }); // Force refresh
     // reset(defaultValues);
-    // setSetEdit([]); // Close input
+    setSetEdit([]); // Close input
+    setBottleSelected({});
   };
 
   useEffect(() => {
@@ -118,7 +119,14 @@ function TestConsume({ setEdit, setSetEdit }) {
           </Stack>
 
           <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
-            <Button onClick={() => setSetEdit([])} variant="contained" size="small">
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => {
+                setSetEdit([]);
+                setBottleSelected({});
+              }}
+            >
               Cancel
             </Button>
             <LoadingButton
@@ -152,4 +160,5 @@ export default TestConsume;
 TestConsume.propTypes = {
   setEdit: PropTypes.array,
   setSetEdit: PropTypes.func,
+  setBottleSelected: PropTypes.func,
 };
