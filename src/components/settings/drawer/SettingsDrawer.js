@@ -7,7 +7,7 @@ import { bgBlur } from '../../../utils/cssStyles';
 // config
 import { NAV } from '../../../config-global';
 //
-import Iconify from '../../iconify';
+import Iconify from '../../Iconify';
 import Scrollbar from '../../scrollbar';
 //
 import { defaultSettings } from '../config-setting';

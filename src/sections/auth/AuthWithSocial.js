@@ -3,7 +3,7 @@ import { Divider, IconButton, Stack } from '@mui/material';
 // auth
 import { useAuthContext } from '../../auth/useAuthContext';
 // components
-import Iconify from '../../components/iconify';
+import Iconify from '../../components/Iconify';
 
 // ----------------------------------------------------------------------
 

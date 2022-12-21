@@ -2,7 +2,7 @@
 import { Stack, Box } from '@mui/material';
 //
 import { useSettingsContext } from '../SettingsContext';
-import Iconify from '../../iconify';
+import Iconify from '../../Iconify';
 import { StyledCard } from '../styles';
 
 // ----------------------------------------------------------------------

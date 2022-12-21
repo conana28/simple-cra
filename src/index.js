@@ -7,9 +7,12 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 
 // ----------------------------------------------------------------------
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { staleTime: 60000 } },
-});
+// const queryClient = new QueryClient({
+//   defaultOptions: { queries: { staleTime: 60000 } },
+// });
+
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // root.render(<App />);

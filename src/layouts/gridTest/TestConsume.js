@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button, Alert, Stack, Typography } from '@mui/material';
+import { Button, Alert, Stack, Typography, Paper } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { format } from 'date-fns';
 
@@ -33,6 +33,7 @@ function TestConsume({ setEdit, setSetEdit, setBottleSelected }) {
   const rack = getKey(setEdit, 'rack');
   const shelf = getKey(setEdit, 'shelf') ? getKey(setEdit, 'shelf') : '';
   const cost = getKey(setEdit, 'cost') ? getKey(setEdit, 'cost') : 0;
+  const wineId = getKey(setEdit, 'wineId') ? getKey(setEdit, 'wineId') : 'n/a';
 
   console.log('Cost: ', cost);
 
@@ -97,61 +98,65 @@ function TestConsume({ setEdit, setSetEdit, setBottleSelected }) {
   }, [setEdit]);
 
   return (
-    <Stack spacing={1} sx={{ mb: 5, position: 'relative', border: 1, p: 1 }} direction="column">
-      <Typography variant="h5" align="center">
-        Edit Bottle
-      </Typography>
+    <Paper elevation={12}>
+      <Stack spacing={1} sx={{ mb: 0, position: 'relative', border: 0, p: 3 }} direction="column">
+        <Typography variant="h5" align="center" sx={{ mt: -2, mb: -2 }}>
+          Edit Bottle
+        </Typography>
 
-      <Typography variant="body2" align="center">
-        {wineText} {rack} {shelf}
-      </Typography>
+        <Typography variant="body2" align="center" sx={{ mt: -1, color: 'primary.main' }}>
+          {wineText} ({wineId})
+        </Typography>
 
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2} direction="column">
-          {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
-          <Stack spacing={2} direction="row">
-            <RHFTextField name="vintage" type="number" label="Vintage" />
-            <RHFTextField name="cost" type="number" label="Cost" />
-          </Stack>
-          <Stack spacing={2} direction="row">
-            <RHFTextField name="rack" type="string" label="Rack" />
-            <RHFTextField name="shelf" type="string" label="Shelf" />
-          </Stack>
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={1.5} direction="column">
+            {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+            <Stack spacing={2} direction="row">
+              <RHFTextField name="vintage" type="number" label="Vintage" />
+              <RHFTextField name="cost" type="number" label="Cost" />
+            </Stack>
+            <Stack spacing={2} direction="row">
+              <RHFTextField name="rack" type="string" label="Rack" />
+              <RHFTextField name="shelf" type="string" label="Shelf" />
+            </Stack>
 
-          <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
-            <Button
-              variant="contained"
-              size="small"
-              onClick={() => {
-                setSetEdit([]);
-                setBottleSelected({});
-              }}
-            >
-              Cancel
-            </Button>
-            <LoadingButton
-              // fullWidth
-              //   color="inherit"
-              size="small"
-              type="submit"
-              variant="contained"
-              //   loading={isSubmitSuccessful || isSubmitting}
-              loading={isSubmitting}
-              sx={{
-                bgcolor: 'text.primary',
-                color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
-                '&:hover': {
-                  bgcolor: 'text.primary',
-                  color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
-                },
-              }}
-            >
-              Edit
-            </LoadingButton>
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="center">
+              <Button
+                sx={{ mt: 0, bgcolor: 'error.main' }}
+                variant="contained"
+                size="small"
+                onClick={() => {
+                  setSetEdit([]);
+                  setBottleSelected({});
+                }}
+              >
+                Cancel
+              </Button>
+              <LoadingButton
+                // fullWidth
+                //   color="inherit"
+                size="small"
+                type="submit"
+                variant="contained"
+                //   loading={isSubmitSuccessful || isSubmitting}
+                loading={isSubmitting}
+                // sx={{
+                //   // bgcolor: 'success.main',
+                //   color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
+                //   '&:hover': {
+                //     bgcolor: 'text.primary',
+                //     color: (theme) =>
+                //       theme.palette.mode === 'light' ? 'common.white' : 'grey.800',
+                //   },
+                // }}
+              >
+                Edit
+              </LoadingButton>
+            </Stack>
           </Stack>
-        </Stack>
-      </FormProvider>
-    </Stack>
+        </FormProvider>
+      </Stack>
+    </Paper>
   );
 }
 

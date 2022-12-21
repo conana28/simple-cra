@@ -17,7 +17,7 @@ import {
 import { bgBlur } from '../../../utils/cssStyles';
 import flattenArray from '../../../utils/flattenArray';
 // components
-import Iconify from '../../../components/iconify';
+import Iconify from '../../../components/Iconify';
 import { IconButtonAnimate } from '../../../components/animate';
 import SearchNotFound from '../../../components/search-not-found';
 //

@@ -15,6 +15,7 @@ GridTestLayout.propTypes = {
   setSetEdit: PropTypes.func,
   setBottleSelected: PropTypes.func,
   bottleSelected: PropTypes.object,
+  setSetConsume: PropTypes.func,
 };
 
 export default function GridTestLayout({
@@ -24,12 +25,12 @@ export default function GridTestLayout({
   setSetEdit,
   setBottleSelected,
   bottleSelected,
+  setSetConsume,
 }) {
   const [searchData, setSearchData] = useState({
     bottleSearchString: '',
     vintageSearchString: 0,
   });
-  console.log(setBottleSelected);
 
   return (
     <>
@@ -39,7 +40,7 @@ export default function GridTestLayout({
 
       {/* <Box sx={{ flexGrow: 1, bgcolor: 'dodgerblue', height: '80vh' }}> */}
       <Grid container spacing={5}>
-        <Grid xs={12} sm={6} sx={{ bgcolor: 'orange' }}>
+        <Grid xs={12} sm={6} sx={{ bgcolor: 'orangea' }}>
           {searchData.bottleSearchString === '' && (
             <TestSearchInput setSearchData={setSearchData} />
           )}
@@ -51,11 +52,12 @@ export default function GridTestLayout({
               setSetEdit={setSetEdit}
               bottleSelected={bottleSelected}
               setBottleSelected={setBottleSelected}
+              setSetConsume={setSetConsume}
             />
           )}
         </Grid>
 
-        <Grid xs={12} sm={6} sx={{ bgcolor: 'green' }}>
+        <Grid xs={12} sm={6} sx={{ bgcolor: 'greena' }}>
           {children}
         </Grid>
       </Grid>

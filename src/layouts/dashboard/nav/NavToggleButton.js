@@ -6,7 +6,7 @@ import useResponsive from '../../../hooks/useResponsive';
 // config
 import { NAV } from '../../../config-global';
 // components
-import Iconify from '../../../components/iconify';
+import Iconify from '../../../components/Iconify';
 import { useSettingsContext } from '../../../components/settings';
 
 // ----------------------------------------------------------------------

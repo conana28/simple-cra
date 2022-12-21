@@ -10,7 +10,7 @@ export const fetchBottles = async () => {
 export const searchBottles = async (key) => {
   console.log('SEARCH BOTTLES HTTP', key);
   const response = await axios.post(
-    `https://fancy-hem-bull.cyclic.app//api/bottles/bottlesearch?page=${key.queryKey[2]}`,
+    `https://fancy-hem-bull.cyclic.app//api/bottles/bottlesearch?limit=5&page=${key.queryKey[2]}`,
     key.queryKey[1]
 
     // 'https://fancy-hem-bull.cyclic.app/api/bottles/bottlesearch?limit=12',

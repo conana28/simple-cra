@@ -7,7 +7,7 @@ import { useLocales } from '../../../locales';
 // auth
 import RoleBasedGuard from '../../../auth/RoleBasedGuard';
 //
-import Iconify from '../../iconify';
+import Iconify from '../../Iconify';
 //
 import { StyledItem, StyledIcon, StyledDotIcon } from './styles';
 

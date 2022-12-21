@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // @mui
 import { Stack, Tooltip, Typography } from '@mui/material';
 //
-import Iconify from '../../iconify';
+import Iconify from '../../Iconify';
 
 // ----------------------------------------------------------------------
 

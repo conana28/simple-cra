@@ -6,7 +6,7 @@ import { alpha } from '@mui/material/styles';
 import { Box, Collapse, IconButton } from '@mui/material';
 //
 import { useSettingsContext } from '../settings';
-import Iconify from '../iconify';
+import Iconify from '../Iconify';
 //
 import StyledNotistack from './styles';
 

@@ -12,7 +12,7 @@ import { LoadingButton } from '@mui/lab';
 // auth
 import { useAuthContext } from '../../auth/useAuthContext';
 // components
-import Iconify from '../iconify';
+import Iconify from '../Iconify';
 import FormProvider, { RHFTextField } from '../hook-form';
 
 // ----------------------------------------------------------------------

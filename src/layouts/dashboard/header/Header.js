@@ -11,7 +11,7 @@ import useResponsive from '../../../hooks/useResponsive';
 import { HEADER, NAV } from '../../../config-global';
 // components
 import Logo from '../../../components/logo';
-import Iconify from '../../../components/iconify';
+import Iconify from '../../../components/Iconify';
 import { useSettingsContext } from '../../../components/settings';
 //
 import Searchbar from './Searchbar';
