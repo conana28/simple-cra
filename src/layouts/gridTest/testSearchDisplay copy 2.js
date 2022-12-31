@@ -38,7 +38,6 @@ export const TestSearchDisplay = ({
   checked,
   setChecked,
   handleToggle,
-  setSetMove,
 }) => {
   const queryClient = useQueryClient();
   const isXs = useMediaQuery('(max-width:600px)');
@@ -46,7 +45,9 @@ export const TestSearchDisplay = ({
   const { enqueueSnackbar } = useSnackbar();
   // Action Menu - When three dots clicked
   const [openMenu, setOpenMenuActions] = useState(null);
-
+  // const [menuSelect, setMenuSelect] = useState(false);
+  // const [bottleSelected, setBottleSelected] = useState({}); // remember bottle details
+  // Pagination
   const [page, setPage] = useState(1);
 
   let searchObj = {};
@@ -98,7 +99,7 @@ export const TestSearchDisplay = ({
 
   const handleCloseMenu = (e) => {
     console.log('Close...', e.type, bottleSelected);
-    // If menu closed by clicking outside then an event is passed
+    // If menu closed by clicking outside then an ecent is passed
     if (e.type) setBottleSelected({});
     setOpenMenuActions(null);
   };
@@ -116,12 +117,8 @@ export const TestSearchDisplay = ({
   const handleMove = () => {
     console.log('Move', bottleSelected, checked);
     handleCloseMenu('m');
-    if (checked.length === 0) {
-      checked.push(bottleSelected._id);
-    }
-    setSetMove(checked); // Open dialog/screen with move form (expects array of bottle ids to move)
+    // setSetMove(bottleSelected._id); // Open dialog/screen with consume form (expects bid)
   };
-
   const match = data.data[0].wineText !== 'No bottles match criteria';
   console.log(match, data.data[0]);
 
@@ -137,34 +134,51 @@ export const TestSearchDisplay = ({
       <List>
         {data &&
           data.data.map((bb) => (
-            <ListItem
+            <ListItemButton
+              selected={bb._id === bottleSelected._id}
               key={bb._id}
+              onClick={handleToggle(bb._id)}
               dense={isXs}
-              secondaryAction={
-                <IconButton edge="end" onClick={(event) => handleOpenMenu(event, bb)}>
-                  <Iconify icon="eva:more-vertical-fill" width={18} height={18} />
-                </IconButton>
-              }
-              disablePadding
-              // onContextMenu={handleContextMenu}
-              style={{ cursor: 'context-menu' }}
+              // Uesful in light mode
+              // sx={{
+              //   '&.Mui-selected': {
+              //     // backgroundColor: '#b388ff',
+              //     backgroundColor: 'secondary.light',
+              //   },
+              //   '&.Mui-focusVisible': {
+              //     backgroundColor: '#51ec94',
+              //   },
+              //   ':hover': {
+              //     // backgroundColor: '#b388ff',
+              //     backgroundColor: 'primary.light',
+              //   },
+              // }}
             >
-              <ListItemButton
-                role={undefined}
-                selected={bb._id === bottleSelected._id}
-                onClick={handleToggle(bb._id)}
+              <ListItemIcon>
+                {checked.indexOf(bb._id) !== -1 && (
+                  <Checkbox
+                    size="small"
+                    edge="start"
+                    checked={checked.indexOf(bb._id) !== -1}
+                    tabIndex={-1}
+                    disableRipple
+                    // inputProps={{ 'aria-labelledby': labelId }}
+                  />
+                )}
+              </ListItemIcon>
+
+              <ListItem
+                // selected={bb._id === bottleSelected._id}
+                // selected={bb._id === setEdit._id}
+
+                key={bb._id}
+                disableGutters
+                secondaryAction={
+                  <IconButton onClick={(event) => handleOpenMenu(event, bb)}>
+                    <Iconify icon="eva:more-vertical-fill" width={18} height={18} />
+                  </IconButton>
+                }
               >
-                <ListItemIcon>
-                  {checked.indexOf(bb._id) !== -1 && (
-                    <Checkbox
-                      size="small"
-                      edge="start"
-                      checked={checked.indexOf(bb._id) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                    />
-                  )}
-                </ListItemIcon>
                 <ListItemText
                   primary={match ? `${bb.vintage} ${bb.wineText}` : `${bb.wineText}`}
                   secondary={
@@ -174,8 +188,8 @@ export const TestSearchDisplay = ({
                   }
                   secondaryTypographyProps={{ color: 'primary' }}
                 />
-              </ListItemButton>
-            </ListItem>
+              </ListItem>
+            </ListItemButton>
           ))}
       </List>
 
@@ -211,10 +225,8 @@ export const TestSearchDisplay = ({
           onClick={() => {
             setSearchData({ bottleSearchString: '', vintageSearchString: 0 }); // reset search display
             setBottleSelected({});
-            setChecked([]);
             setSetEdit([]); // Controls display of RH
             setSetConsume('');
-            setSetMove([]);
           }}
           variant="contained"
           size="small"
@@ -236,5 +248,4 @@ TestSearchDisplay.propTypes = {
   checked: PropTypes.array,
   setChecked: PropTypes.func,
   handleToggle: PropTypes.func,
-  setSetMove: PropTypes.func,
 };

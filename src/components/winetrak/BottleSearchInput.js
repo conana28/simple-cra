@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
+import { Link, Stack, Alert, Button, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // auth
 import { useAuthContext } from '../../auth/useAuthContext';
@@ -63,7 +63,7 @@ export default function BottleSearchInput({ setSearchData }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={2} direction="row">
+      <Stack spacing={2} direction="row" justifyContent="center">
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
         <RHFTextField name="wineText" label="Search for bottle" />
@@ -74,6 +74,7 @@ export default function BottleSearchInput({ setSearchData }) {
         Forgot password?
         </Link>
     </Stack> */}
+        <Button>A</Button>
 
         <LoadingButton
           // fullWidth
@@ -84,6 +85,7 @@ export default function BottleSearchInput({ setSearchData }) {
           //   loading={isSubmitSuccessful || isSubmitting}
           loading={isSubmitting}
           sx={{
+            mt: 4,
             bgcolor: 'text.primary',
             color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
             '&:hover': {

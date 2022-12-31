@@ -13,9 +13,13 @@ GridTestLayout.propTypes = {
   children: PropTypes.node,
   illustration: PropTypes.string,
   setSetEdit: PropTypes.func,
+  setSetMove: PropTypes.func,
   setBottleSelected: PropTypes.func,
   bottleSelected: PropTypes.object,
   setSetConsume: PropTypes.func,
+  checked: PropTypes.array,
+  setChecked: PropTypes.func,
+  handleToggle: PropTypes.func,
 };
 
 export default function GridTestLayout({
@@ -23,9 +27,13 @@ export default function GridTestLayout({
   illustration,
   title,
   setSetEdit,
+  setSetMove,
   setBottleSelected,
   bottleSelected,
   setSetConsume,
+  checked,
+  setChecked,
+  handleToggle,
 }) {
   const [searchData, setSearchData] = useState({
     bottleSearchString: '',
@@ -50,9 +58,13 @@ export default function GridTestLayout({
               searchData={searchData}
               setSearchData={setSearchData}
               setSetEdit={setSetEdit}
+              setSetMove={setSetMove}
               bottleSelected={bottleSelected}
               setBottleSelected={setBottleSelected}
               setSetConsume={setSetConsume}
+              checked={checked}
+              setChecked={setChecked}
+              handleToggle={handleToggle}
             />
           )}
         </Grid>

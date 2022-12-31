@@ -42,9 +42,11 @@ export const HEADER = {
 };
 
 export const NAV = {
+  // W_BASE: 260,
+  // W_DASHBOARD: 280,
   W_BASE: 260,
-  W_DASHBOARD: 280,
-  W_DASHBOARD_MINI: 88,
+  W_DASHBOARD: 200, // Width of left drawer when expanded
+  W_DASHBOARD_MINI: 88, // Width of left drawer when compressed
   //
   H_DASHBOARD_ITEM: 48,
   H_DASHBOARD_ITEM_SUB: 36,
