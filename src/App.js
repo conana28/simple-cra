@@ -29,6 +29,7 @@ import ScrollToTop from './components/scroll-to-top';
 // https://docs.minimals.cc/authentication/js-version
 
 import { AuthProvider } from './auth/JwtContext';
+import { CellarContextProvider } from './sections/cellar/CellarContext';
 // <Navigate> element changes the current location when it is rendered.
 // It's a component wrapper around useNavigate,
 // and accepts all the same arguments as props.
@@ -38,26 +39,28 @@ import { AuthProvider } from './auth/JwtContext';
 export default function App() {
   return (
     <AuthProvider>
-      <HelmetProvider>
-        <SettingsProvider>
-          {/* <BrowserRouter> - NOT NEEDED FOR 6.4 */}
-          {/* <ScrollToTop /> Disabled as crashed routing */}
-          {/*  */}
-          <MotionLazyContainer>
-            <ThemeProvider>
-              <ThemeSettings>
-                <ThemeLocalization>
-                  <SnackbarProvider>
-                    <RouterProvider router={r} />
-                    {/* <Router /> -- NOT NEEDED FOR 6.4 */}
-                  </SnackbarProvider>
-                </ThemeLocalization>
-              </ThemeSettings>
-            </ThemeProvider>
-          </MotionLazyContainer>
-          {/* </BrowserRouter> */}
-        </SettingsProvider>
-      </HelmetProvider>
+      <CellarContextProvider>
+        <HelmetProvider>
+          <SettingsProvider>
+            {/* <BrowserRouter> - NOT NEEDED FOR 6.4 */}
+            {/* <ScrollToTop /> Disabled as crashed routing */}
+            {/*  */}
+            <MotionLazyContainer>
+              <ThemeProvider>
+                <ThemeSettings>
+                  <ThemeLocalization>
+                    <SnackbarProvider>
+                      <RouterProvider router={r} />
+                      {/* <Router /> -- NOT NEEDED FOR 6.4 */}
+                    </SnackbarProvider>
+                  </ThemeLocalization>
+                </ThemeSettings>
+              </ThemeProvider>
+            </MotionLazyContainer>
+            {/* </BrowserRouter> */}
+          </SettingsProvider>
+        </HelmetProvider>
+      </CellarContextProvider>
     </AuthProvider>
   );
 }

@@ -61,37 +61,39 @@ export default function BottleSearchInput({ setSearchData }) {
   };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={1} direction="row" component={Paper} sx={{ p: 1 }} alignItems="center">
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+    <Paper sx={{ mb: 2 }}>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={1} direction="row" component={Paper} sx={{ p: 1 }} alignItems="center">
+          {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name="wineText" label="Search for bottle" size="small" />
-        <RHFTextField name="vintage" type="number" label="Vintage" size="small" />
-        {/* <Button variant="contained" size="small">
+          <RHFTextField name="wineText" label="Search for bottle" size="small" />
+          <RHFTextField name="vintage" type="number" label="Vintage" size="small" />
+          {/* <Button variant="contained" size="small">
           A
         </Button> */}
-        <LoadingButton
-          // fullWidth
-          //   color="inherit"
-          size="small"
-          type="submit"
-          variant="contained"
-          //   loading={isSubmitSuccessful || isSubmitting}
-          loading={isSubmitting}
-          sx={{
-            // alignContent: 'end',
-            // justifyContent: 'center',
-            // bgcolor: 'text.primary',
-            color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
-            '&:hover': {
-              bgcolor: 'text.primary',
+          <LoadingButton
+            // fullWidth
+            //   color="inherit"
+            size="small"
+            type="submit"
+            variant="contained"
+            //   loading={isSubmitSuccessful || isSubmitting}
+            loading={isSubmitting}
+            sx={{
+              // alignContent: 'end',
+              // justifyContent: 'center',
+              // bgcolor: 'text.primary',
               color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
-            },
-          }}
-        >
-          Search
-        </LoadingButton>
-      </Stack>
-    </FormProvider>
+              '&:hover': {
+                bgcolor: 'text.primary',
+                color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
+              },
+            }}
+          >
+            Search
+          </LoadingButton>
+        </Stack>
+      </FormProvider>
+    </Paper>
   );
 }

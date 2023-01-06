@@ -1,6 +1,8 @@
 // import { useCallback } from "react";
 import axios from 'axios';
 
+const URL = 'https://fancy-hem-bull.cyclic.app/api/bottles/';
+
 export const fetchBottles = async () => {
   const response = await axios.get('https://fancy-hem-bull.cyclic.app/api/bottles');
   const bottles = response.data.bottles1x;
@@ -10,16 +12,44 @@ export const fetchBottles = async () => {
 export const searchBottles = async (key) => {
   console.log('SEARCH BOTTLES HTTP', key);
   const response = await axios.post(
-    `https://fancy-hem-bull.cyclic.app//api/bottles/bottlesearch?limit=5&page=${key.queryKey[2]}`,
+    `${URL}bottlesearch?limit=${key.queryKey[3]}&page=${key.queryKey[2]}`,
     key.queryKey[1]
-
-    // 'https://fancy-hem-bull.cyclic.app/api/bottles/bottlesearch?limit=12',
-    // key.queryKey[1]
-    // {
-    //   wineText: 'Bell',
-    // }
   );
   console.log(response);
   const bottles = response.data;
   return bottles;
+};
+
+// Consume a bottle
+
+export const consumeBottle = async (id, data) => {
+  console.log('CONSUME BOTTLE HTTP', id, data);
+  const response = await axios.delete(`${URL}${id}`, {
+    data,
+  });
+  console.log(response);
+  return response;
+};
+
+export const moveBottle = async (id, data, vintage) => {
+  console.log('MOVE BOTTLE HTTP', id, data, vintage);
+  const response = await axios.patch(`${URL}${id}`, {
+    vintage, // Valid vintage required by api
+    rack: data.rack, // Rack required by api
+    shelf: data.shelf,
+  });
+  console.log(response);
+  return response;
+};
+
+export const updateBottle = async (id, data) => {
+  console.log('UPDATE BOTTLE HTTP', id, data);
+  const response = await axios.patch(`${URL}${id}`, {
+    vintage: data.vintage, // Valid vintage required by api
+    rack: data.rack, // Rack required by api
+    shelf: data.shelf,
+    cost: data.cost,
+  });
+  console.log(response);
+  return response;
 };

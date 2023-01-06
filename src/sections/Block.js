@@ -21,12 +21,20 @@ export function Block({ title, sx, children }) {
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.04),
       }}
     >
-      {title && <CardHeader title={title} />}
+      {/* {title && <CardHeader title={title} titleTypographyProps={{ color: 'secondary.main' }} />} */}
+      {title && (
+        <Typography variant="h6" sx={{ p: 1, color: 'primary.main' }}>
+          {title}
+        </Typography>
+      )}
 
       <Box
         sx={{
-          p: 5,
-          minHeight: 180,
+          pt: 0,
+          px: 2,
+          pb: 0,
+          // p: 5,
+          // minHeight: 180,
           ...sx,
         }}
       >
