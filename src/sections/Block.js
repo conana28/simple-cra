@@ -23,7 +23,9 @@ export function Block({ title, sx, children }) {
     >
       {/* {title && <CardHeader title={title} titleTypographyProps={{ color: 'secondary.main' }} />} */}
       {title && (
-        <Typography variant="h6" sx={{ p: 1, color: 'primary.main' }}>
+        // <Typography variant="h6" sx={{ p: 1, color: 'primary.main' }}>
+
+        <Typography variant="h6" sx={{ p: 1, color: 'primary.light' }}>
           {title}
         </Typography>
       )}
