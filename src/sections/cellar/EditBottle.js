@@ -12,15 +12,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // components
 import FormProvider, { RHFTextField } from '../../components/hook-form';
-import { useCellarContext } from './CellarContext';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
 import { updateBottle } from '../../https/bottles';
 
 const EditBottles = ({ checked, setChecked }) => {
   console.log('Checked ', checked);
   const qC = useQueryClient();
-  const { setMenuSelect, bottleSelected, setBottleSelected } = useCellarContext();
-  const { vintage, rack, shelf } = bottleSelected;
-  let { cost } = bottleSelected;
+  const { setMenuSelect, selected, setSelected } = useWinetrakContext();
+  const { vintage, rack, shelf } = selected;
+  let { cost } = selected;
   if (cost === undefined || cost === null) {
     cost = 0;
   }
@@ -47,7 +47,6 @@ const EditBottles = ({ checked, setChecked }) => {
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = methods;
-  // return <div>MoveBottles {bottleSelected.wineText} </div>;
 
   const mBottle = useMutation({
     mutationFn: (data) => updateBottle(data.bid, data.data),
@@ -66,8 +65,8 @@ const EditBottles = ({ checked, setChecked }) => {
         mBottle.mutate({ data, bid: checked[i].bid });
       }
     } else {
-      console.log('bottleSelected._id', bottleSelected._id);
-      mBottle.mutate({ data, bid: bottleSelected._id }); //
+      console.log('selected._id', selected._id);
+      mBottle.mutate({ data, bid: selected._id }); //
     }
     // reset(defaultValues);
     // setSetMove([]); // Close input
@@ -76,7 +75,7 @@ const EditBottles = ({ checked, setChecked }) => {
 
   const handleCancel = () => {
     setMenuSelect(''); // Close consume
-    setBottleSelected({});
+    setSelected({});
     setChecked([]);
   };
   const Item = styled(Paper)(({ theme }) => ({
@@ -91,15 +90,13 @@ const EditBottles = ({ checked, setChecked }) => {
     <Paper elevation={12} sx={{ mb: 2 }}>
       <Stack spacing={1} sx={{ mb: 0, position: 'relative', border: 0, p: 3 }} direction="column">
         <Typography variant="body2" align="center" sx={{ mt: -1, color: 'primary.main' }}>
-          {bottleSelected.wineText} ({bottleSelected.wineId})
+          {selected.wineText} ({selected.wineId})
         </Typography>
 
         <Stack spacing={1} direction="row" justifyContent="center">
           {checked.length > 0 &&
             checked.map((bb) => <Item key={bb.bid}>..{bb.bid.substr(bb.bid.length - 5)}</Item>)}
-          {checked.length === 0 && (
-            <Item>..{bottleSelected._id.substr(bottleSelected._id.length - 5)}</Item>
-          )}
+          {checked.length === 0 && <Item>..{selected._id.substr(selected._id.length - 5)}</Item>}
         </Stack>
 
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

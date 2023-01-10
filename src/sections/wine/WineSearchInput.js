@@ -16,6 +16,7 @@ import { LoadingButton } from '@mui/lab';
 // components
 import FormProvider, { RHFTextField } from '../../components/hook-form';
 import { useSnackbar } from '../../components/snackbar';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
 
 WineSearchInput.propTypes = {
   wineSearchData: PropTypes.object,
@@ -24,6 +25,7 @@ WineSearchInput.propTypes = {
 // ----------------------------------------------------------------------
 
 export default function WineSearchInput({ wineSearchData, setWineSearchData }) {
+  const { setSelected } = useWinetrakContext();
   const { enqueueSnackbar } = useSnackbar(); // SnackBar on/off
   // form
   const defaultValues = {
@@ -60,6 +62,7 @@ export default function WineSearchInput({ wineSearchData, setWineSearchData }) {
 
     if (Object.entries(searchObj).length > 0) {
       console.log('GET WINES...');
+      setSelected({});
       setWineSearchData(searchObj);
       // reset();
       // setShowWineSelect(false); // Close this
@@ -113,7 +116,7 @@ export default function WineSearchInput({ wineSearchData, setWineSearchData }) {
           </Stack>
         </Stack>
       </FormProvider>
-      {isSubmitted && isSubmitSuccessful && <p>No matching bottles</p>}
+      {isSubmitted && isSubmitSuccessful && <p>No matching wines</p>}
       {isSubmitting && <LinearProgress color="primary" sx={{ mt: 4 }} />}
     </Paper>
   );

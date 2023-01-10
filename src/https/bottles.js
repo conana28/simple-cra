@@ -53,3 +53,12 @@ export const updateBottle = async (id, data) => {
   console.log(response);
   return response;
 };
+
+export const getBottlesByWine = async (key) => {
+  console.log('GET BOTTLEs BY WINE HTTP', key.queryKey[1]);
+  const response = await axios.get(`${URL}wine/${key.queryKey[1]}`);
+  // const response = 'AA';
+  console.log(response.data.bottles);
+  const sorted = response.data.bottles.sort((a, b) => a.vintage - b.vintage);
+  return sorted;
+};

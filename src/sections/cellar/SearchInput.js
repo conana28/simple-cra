@@ -14,13 +14,14 @@ import { LoadingButton } from '@mui/lab';
 // components
 import FormProvider, { RHFTextField } from '../../components/hook-form';
 import { searchBottles } from '../../https/bottles';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
 
 // ----------------------------------------------------------------------
 
 // eslint-disable-next-line react/prop-types
 export default function BottleSearchInput({ setSearchData }) {
   const [matchFound, setMatchFound] = useState(false);
-
+  const { setSelected } = useWinetrakContext();
   // form
   const BottleSearchSchema = yup.object().shape({
     wineText: yup.string().required('Bottle name is required'),
@@ -59,6 +60,7 @@ export default function BottleSearchInput({ setSearchData }) {
 
     if (response.data.count > 0) {
       // bottles found
+      setSelected({});
       setMatchFound(true);
       setSearchData(searchObj); // trigger search results
     }

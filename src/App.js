@@ -30,6 +30,8 @@ import ScrollToTop from './components/scroll-to-top';
 
 import { AuthProvider } from './auth/JwtContext';
 import { CellarContextProvider } from './sections/cellar/CellarContext';
+import { WinetrakContextProvider } from './components/winetrak/WinetrakContext';
+// <Navigate> element changes the current location when it is rendered.
 // <Navigate> element changes the current location when it is rendered.
 // It's a component wrapper around useNavigate,
 // and accepts all the same arguments as props.
@@ -39,7 +41,7 @@ import { CellarContextProvider } from './sections/cellar/CellarContext';
 export default function App() {
   return (
     <AuthProvider>
-      <CellarContextProvider>
+      <WinetrakContextProvider>
         <HelmetProvider>
           <SettingsProvider>
             {/* <BrowserRouter> - NOT NEEDED FOR 6.4 */}
@@ -60,7 +62,7 @@ export default function App() {
             {/* </BrowserRouter> */}
           </SettingsProvider>
         </HelmetProvider>
-      </CellarContextProvider>
+      </WinetrakContextProvider>
     </AuthProvider>
   );
 }

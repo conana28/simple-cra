@@ -28,12 +28,12 @@ import FormProvider, { RHFTextField } from '../../components/hook-form';
 
 import SvgColor from '../../components/svg-color';
 
-import { useCellarContext } from './CellarContext';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
 import { consumeBottle } from '../../https/bottles';
 
 const ConsumeBottles = () => {
   const qC = useQueryClient();
-  const { setMenuSelect, bottleSelected, setBottleSelected } = useCellarContext();
+  const { setMenuSelect, selected, setSelected } = useWinetrakContext();
   // Form
   const ConsumeSchema = yup.object().shape({
     consume: yup.string().nullable().required('Date is required'),
@@ -63,11 +63,11 @@ const ConsumeBottles = () => {
     await updateBottle.mutate({ consume: dd });
     // reset(defaultValues);
     setMenuSelect(''); // Close consume
-    setBottleSelected({}); // Reset bottle selected
+    setSelected({}); // Reset bottle selected
     // setUserInfo((prev) => !prev);
   };
   const updateBottle = useMutation({
-    mutationFn: (data) => consumeBottle(bottleSelected._id, data),
+    mutationFn: (data) => consumeBottle(selected._id, data),
     onSuccess: (s) => {
       console.log('on CONSUME SUCCESS', s.data.message);
       qC.invalidateQueries({ queryKey: ['bottles'] });
@@ -77,7 +77,7 @@ const ConsumeBottles = () => {
 
   const handleCancel = () => {
     setMenuSelect(''); // Close consume
-    setBottleSelected({});
+    setSelected({});
   };
 
   return (
@@ -88,7 +88,7 @@ const ConsumeBottles = () => {
         </Typography> */}
 
         <Typography variant="body2" align="center" color="primary">
-          {bottleSelected.wineText} ({bottleSelected.wineId})
+          {selected.wineText} ({selected.wineId})
         </Typography>
 
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -145,8 +145,8 @@ export default ConsumeBottles;
 ConsumeBottles.propTypes = {
   setMenuSelect: PropTypes.string,
   setSetMenuSelected: PropTypes.func,
-  setBottleSelected: PropTypes.func,
-  bottleSelected: PropTypes.object,
+  setSelected: PropTypes.func,
+  selected: PropTypes.object,
 };
 
 const monthsShort = {

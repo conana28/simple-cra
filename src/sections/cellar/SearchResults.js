@@ -22,7 +22,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { searchBottles } from '../../https/bottles';
 import Iconify from '../../components/Iconify';
 import { useSnackbar } from '../../components/snackbar';
-import { useCellarContext } from './CellarContext';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
 import MenuPopover from '../../components/MenuPopover';
 
 SearchResults.propTypes = {
@@ -38,7 +38,7 @@ function SearchResults({ searchData, setSearchData, checked, setChecked }) {
   // const [checked, setChecked] = useState([]); // Check multiple bottles
   const { enqueueSnackbar } = useSnackbar(); // SnackBar on/off
   const [openMenu, setOpenMenu] = useState(false); // Menu on/off
-  const { bottleSelected, setBottleSelected, setMenuSelect } = useCellarContext();
+  const { setMenuSelect, selected, setSelected } = useWinetrakContext();
 
   let searchObj = {};
   if (searchData.vintage === 0) {
@@ -89,25 +89,26 @@ function SearchResults({ searchData, setSearchData, checked, setChecked }) {
 
   // Menus (action icon)
   const handleOpenMenu = (event, bottle) => {
-    console.log(bottle, Object.keys(bottleSelected));
+    console.log(bottle, Object.keys(selected));
     // // Disable action menu when RH is shown
-    if (Object.keys(bottleSelected).length !== 0) {
+    if (Object.keys(selected).length !== 0) {
       enqueueSnackbar('Bottle already selected', { variant: 'error' });
       return;
     }
-    setBottleSelected(bottle); // Store bottle selected for actions
+    // setBottleSelected(bottle); // Store bottle selected for actions
+    setSelected(bottle); // Store bottle selected for actions
     setOpenMenu(event.currentTarget);
   };
 
   const handleCloseMenu = (e) => {
-    console.log('Close...', e.type, bottleSelected);
+    console.log('Close...', e.type, selected);
     // If menu closed by clicking outside then an event is passed
-    if (e.type) setBottleSelected({});
+    if (e.type) setSelected({});
     setOpenMenu(null);
   };
 
   const handleEditDelete = () => {
-    console.log('Edit/Delete', bottleSelected);
+    console.log('Edit/Delete', selected);
     handleCloseMenu('e');
     // if (checked.length > 0) {
     //   setBottleSelected({});
@@ -118,24 +119,27 @@ function SearchResults({ searchData, setSearchData, checked, setChecked }) {
   };
 
   const handleConsume = () => {
-    console.log('Consume', bottleSelected);
+    console.log('Consume', selected);
     handleCloseMenu('c');
     if (checked.length > 0) {
-      setBottleSelected({});
-      enqueueSnackbar('Checked not supported for consume', { variant: 'error' });
+      setSelected({});
+      enqueueSnackbar('Checked not supported for consume', {
+        variant: 'error',
+        anchorOrigin: { vertical: 'top', horizontal: 'left' },
+      });
       return;
     }
     setMenuSelect('c'); // Open consume screen
     // setSetConsume(bottleSelected._id); //  form (expects bid)
   };
   const handleMove = () => {
-    console.log('Move', bottleSelected, checked);
+    console.log('Move', selected, checked);
     if (checked.length > 0) {
       // Check that bottleselected is one of the checked bottles
       let i = 0;
       let inc = false;
       while (i < checked.length) {
-        if (bottleSelected._id === checked[i].bid) {
+        if (selected._id === checked[i].bid) {
           inc = true;
           break;
         }
@@ -144,7 +148,7 @@ function SearchResults({ searchData, setSearchData, checked, setChecked }) {
 
       if (!inc) {
         enqueueSnackbar('Move must be called from a selected bottle', { variant: 'error' });
-        setBottleSelected({}); // reset selected bottle
+        setSelected({}); // reset selected bottle
         handleCloseMenu('m');
         return;
       }
@@ -175,7 +179,7 @@ function SearchResults({ searchData, setSearchData, checked, setChecked }) {
             >
               <ListItemButton
                 role={undefined}
-                selected={bb._id === bottleSelected._id}
+                selected={bb._id === selected._id}
                 onClick={handleToggle(bb._id, bb.vintage)}
               >
                 <ListItemIcon>
@@ -230,14 +234,20 @@ function SearchResults({ searchData, setSearchData, checked, setChecked }) {
 
       <Stack direction="row" justifyContent="space-between">
         {data && (
-          <Pagination count={data.pages} page={page} onChange={handleChange} sx={{ mb: 2 }} />
+          <Pagination
+            count={data.pages}
+            page={page}
+            onChange={handleChange}
+            sx={{ mb: 2 }}
+            disabled={Object.keys(selected).length !== 0}
+          />
         )}
         <IconButton
           color="primary"
           onClick={() => {
             setSearchData({ wineText: '', vintage: 0 }); // reset search display
             setMenuSelect(''); // Close consume
-            setBottleSelected({}); // Reset bottle selected
+            setSelected({}); // Reset bottle selected
             setChecked([]);
             //   setSetEdit([]); // Controls display of RH
             //   setSetConsume('');

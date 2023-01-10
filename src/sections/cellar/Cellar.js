@@ -7,7 +7,8 @@ import { Masonry } from '@mui/lab';
 import { Block } from '../Block';
 import BottleSearchInput from './SearchInput';
 import BottleSearchResults from './SearchResults';
-import { CellarContextProvider, useCellarContext } from './CellarContext';
+// import { CellarContextProvider, useCellarContext } from './CellarContext';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
 import MoveBottles from './MoveBottles';
 import ConsumeBottle from './ConsumeBottle';
 import EditBottle from './EditBottle';
@@ -20,7 +21,7 @@ const StyledListContainer = styled(Paper)(({ theme }) => ({
 }));
 
 function Cellar() {
-  const { menuSelect } = useCellarContext();
+  const { menuSelect } = useWinetrakContext();
   const [checked, setChecked] = useState([]); // Check multiple bottles
 
   const [searchData, setSearchData] = useState({

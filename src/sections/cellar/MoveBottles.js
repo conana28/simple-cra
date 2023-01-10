@@ -11,14 +11,14 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // components
 import FormProvider, { RHFTextField } from '../../components/hook-form';
-import { useCellarContext } from './CellarContext';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
 import { moveBottle } from '../../https/bottles';
 
 const MoveBottles = ({ checked, setChecked }) => {
   console.log('Checked ', checked);
   const qC = useQueryClient();
-  const { setMenuSelect, bottleSelected, setBottleSelected } = useCellarContext();
-  const { rack, shelf } = bottleSelected;
+  const { setMenuSelect, selected, setSelected } = useWinetrakContext();
+  const { rack, shelf } = selected;
   // const shelf = bottleSelected.shelf;
   // Form
   const BottleEditSchema = yup.object().shape({
@@ -60,8 +60,8 @@ const MoveBottles = ({ checked, setChecked }) => {
         mBottle.mutate({ data, bid: checked[i].bid, vintage: checked[i].vint });
       }
     } else {
-      console.log('bottleSelected._id', bottleSelected._id);
-      mBottle.mutate({ data, bid: bottleSelected._id, vintage: bottleSelected.vintage }); //
+      console.log('bottleSelected._id', selected._id);
+      mBottle.mutate({ data, bid: selected._id, vintage: selected.vintage }); //
     }
     // reset(defaultValues);
     // setSetMove([]); // Close input
@@ -70,7 +70,7 @@ const MoveBottles = ({ checked, setChecked }) => {
 
   const handleCancel = () => {
     setMenuSelect(''); // Close consume
-    setBottleSelected({});
+    setSelected({});
     setChecked([]);
   };
   return (
@@ -81,7 +81,7 @@ const MoveBottles = ({ checked, setChecked }) => {
         </Typography> */}
 
         <Typography variant="body2" align="center" sx={{ mt: -1, mb: 2, color: 'primary.main' }}>
-          {bottleSelected.wineText} ({bottleSelected.wineId})
+          {selected.wineText} ({selected.wineId})
         </Typography>
 
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

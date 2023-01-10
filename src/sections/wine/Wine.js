@@ -7,7 +7,9 @@ import { Masonry } from '@mui/lab';
 import { Block } from '../Block';
 import WineSearchInput from './WineSearchInput';
 import WineSearchResults from './WineSearchResults';
-import AddBottle from './AddBottle';
+import AddBottleWine from './AddBottle';
+import { useWinetrakContext } from '../../components/winetrak/WinetrakContext';
+import ShowBottles from './ShowBottles';
 
 function Wine() {
   const [wineSearchData, setWineSearchData] = useState({
@@ -17,6 +19,7 @@ function Wine() {
     region: '',
     subRegion: '',
   });
+  const { menuSelect, selected } = useWinetrakContext();
   const [wid, setWid] = useState('aaa'); // id of wine selected
 
   const title = ` ${
@@ -42,17 +45,27 @@ function Wine() {
               <WineSearchResults
                 wineSearchData={wineSearchData} // Data to search
                 setWineSearchData={setWineSearchData} // To reset
-                setWid={setWid}
+                // selected={selected}
               />
             )}
           </Block>
 
           {/* Right hand / bottom */}
-          {/* {menuSelect === 'a' && ( */}
-          <Block title="Add bottle(s)">
-            <AddBottle wid={wid} />
-          </Block>
-          {/* )} */}
+          {menuSelect === 'a' && (
+            <Block title="Add bottle(s)">
+              <AddBottleWine wid={wid} />
+            </Block>
+          )}
+
+          {menuSelect === 's' && (
+            <Block
+              title={`Bottle${selected.bottles.length > 1 ? 's' : ''} for ${selected.producer} ${
+                selected.wineName
+              }`}
+            >
+              <ShowBottles wid={wid} />
+            </Block>
+          )}
         </Masonry>
       </Container>
     </>
